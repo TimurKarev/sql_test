@@ -1,6 +1,6 @@
 part of 'app_bloc.dart';
 
-class AppState {
+class AppState extends Equatable {
   factory AppState.fromFake(List<Map<String, dynamic>> data) {
     //TODO: make transfer object
     List<TweetModel> tweetList = [];
@@ -25,7 +25,14 @@ class AppState {
     return AppState(tweetList: tweetList);
   }
 
-  AppState({required this.tweetList});
+  const AppState({
+    required this.tweetList,
+    this.showBottomBar = false,
+  });
 
-  late List<TweetModel> tweetList;
+  final List<TweetModel> tweetList;
+  final bool showBottomBar;
+
+  @override
+  List<Object?> get props => [tweetList, showBottomBar];
 }

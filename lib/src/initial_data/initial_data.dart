@@ -4,12 +4,13 @@ abstract class InitialData {
       'id': 1,
       'name': 'TimurKarev',
       'address': '@timurkarev',
-      'body': 'Съеш этих французких булочек',
+      'body':
+          'Съеш этих французких булочек Съеш этих французких булочек Съеш этих французких булочек Съеш этих французких булочек Съеш этих французких булочек',
       'emojis': [],
     },
     {
       'id': 1,
-      'name': 'TimurKarev',
+      'name': 'VimurKarev',
       'address': '@timurkarev',
       'body': 'Съеш этих французких булочек',
       'emojis': [

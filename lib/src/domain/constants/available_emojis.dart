@@ -10,7 +10,7 @@ extension AvailableEmojisExtentions on AvailableEmojis {
   String get unicode {
     switch (this) {
       case AvailableEmojis.redHeart:
-        return '\u{FE0F}';
+        return '\u{1F496}';
       case AvailableEmojis.thumbsUp:
         return '\u{1F44D}';
       case AvailableEmojis.fire:
