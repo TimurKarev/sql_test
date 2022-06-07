@@ -15,43 +15,60 @@ class LandingScreen extends StatelessWidget {
         body: SafeArea(
           child: BlocBuilder<AppBloc, AppState>(
             builder: (context, state) {
-              final tweetList = state.tweetList;
-              return ListView.builder(
-                itemCount: state.tweets.length,
-                itemBuilder: (_, index) {
-                  final model = tweetList[index];
-                  return InkWell(
-                    onTap: () {
-                      context.read<AppBloc>().add(TweetPressedEvent(tweetIndex: index));
-                    },
-                    child: Tweet(
-                      name: model.name,
-                      address: model.address,
-                      body: model.body,
-                      emojis: model.emojis.toList(),
-                    ),
-                  );
-                },
-              );
+              if (state is LoadedState) {
+                final tweetList = state.tweetList;
+                return ListView.builder(
+                  itemCount: state.tweets.length,
+                  itemBuilder: (_, index) {
+                    final model = tweetList[index];
+                    return InkWell(
+                      onTap: () {
+                        context.read<AppBloc>().add(
+                              TweetPressedEvent(
+                                tweetId: model.id,
+                              ),
+                            );
+                      },
+                      child: Tweet(
+                        name: model.name,
+                        address: model.address,
+                        body: model.body,
+                        emojis: model.emojis.toList(),
+                      ),
+                    );
+                  },
+                );
+              }
+              return const Center(
+                child: CircularProgressIndicator(),
+              ); //TODO: create landing page
             },
           ),
         ),
         bottomNavigationBar: BlocBuilder<AppBloc, AppState>(
-          buildWhen: (previous, current) => previous.tweetIndex != current.tweetIndex,
+          buildWhen: (previous, current) {
+            if (current is LoadedState && previous is LoadedState) {
+              return previous.tweetId != current.tweetId;
+            }
+            return false;
+          },
           builder: (context, state) {
-            return BottomAppBar(
-              child: state.tweetIndex != null
-                  ? EmojiPicker(
-                      onTap: (emoji) {
-                        context.read<AppBloc>().add(
-                              EmojiPressedEvent(
-                                pressedEmoji: emoji,
-                              ),
-                            );
-                      },
-                    )
-                  : null,
-            );
+            if (state is LoadedState) {
+              return BottomAppBar(
+                child: state.tweetId != null
+                    ? EmojiPicker(
+                        onTap: (emoji) {
+                          context.read<AppBloc>().add(
+                                EmojiPressedEvent(
+                                  pressedEmoji: emoji,
+                                ),
+                              );
+                        },
+                      )
+                    : null,
+              );
+            }
+            return const BottomAppBar();
           },
         ),
       ),

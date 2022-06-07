@@ -7,13 +7,15 @@ abstract class AppEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class TweetPressedEvent extends AppEvent {
-  final int tweetIndex;
+class InitialEvent extends AppEvent {}
 
-  const TweetPressedEvent({required this.tweetIndex});
+class TweetPressedEvent extends AppEvent {
+  final int tweetId;
+
+  const TweetPressedEvent({required this.tweetId});
 
   @override
-  List<Object?> get props => [tweetIndex];
+  List<Object?> get props => [tweetId];
 }
 
 class EmojiPressedEvent extends AppEvent {

@@ -1,7 +1,16 @@
 part of 'app_bloc.dart';
 
-class AppState extends Equatable {
-  factory AppState.fromFake(List<Map<String, dynamic>> data) {
+abstract class AppState extends Equatable {
+  const AppState();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class InitialState extends AppState {}
+
+class LoadedState extends AppState {
+  factory LoadedState.fromFake(List<Map<String, dynamic>> data) {
     //TODO: make transfer object
     Map<int, TweetModel> resilt = {};
     for (final tweet in data) {
@@ -20,16 +29,16 @@ class AppState extends Equatable {
         emojis: emojiSet,
       );
     }
-    return AppState(tweets: resilt);
+    return LoadedState(tweets: resilt);
   }
 
-  const AppState({
+  const LoadedState({
     required this.tweets,
-    this.tweetIndex,
+    this.tweetId,
   });
 
   final Map<int, TweetModel> tweets;
-  final int? tweetIndex;
+  final int? tweetId;
 
   List<TweetModel> get tweetList {
     final result = <TweetModel>[];
@@ -40,5 +49,5 @@ class AppState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [tweets, tweetIndex];
+  List<Object?> get props => [tweets, tweetId];
 }

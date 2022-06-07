@@ -3,49 +3,69 @@ import 'package:equatable/equatable.dart';
 import 'package:sql_test/src/domain/constants/available_emojis.dart';
 import 'package:sql_test/src/initial_data/initial_data.dart';
 import 'package:sql_test/src/presentation/model/tweet_model.dart';
+import 'package:sql_test/src/repository/i_repository.dart';
+import 'package:sql_test/src/repository/sql/sql_repository.dart';
 
 part 'app_event.dart';
 part 'app_state.dart';
 
 class AppBloc extends Bloc<AppEvent, AppState> {
-  AppBloc() : super(AppState.fromFake(InitialData.data)) {
+  final IRepository _repository = SqlRepository();
+
+  AppBloc() : super(InitialState()) {
+    on<InitialEvent>(_onInitialEvent);
     on<TweetPressedEvent>(_onTweetPressedEvent);
     on<EmojiPressedEvent>(_onEmojiPressedEvent);
+
+    add(InitialEvent());
+  }
+
+  Future<void> _onInitialEvent(
+    InitialEvent event,
+    Emitter<AppState> emitter,
+  ) async {
+    emitter(LoadedState.fromFake(InitialData.data));
   }
 
   Future<void> _onTweetPressedEvent(
     TweetPressedEvent event,
     Emitter<AppState> emitter,
   ) async {
-    if (state.tweetIndex == event.tweetIndex) {
+    if (state is LoadedState) {
+      final loadedState = state as LoadedState;
+      if (loadedState.tweetId == event.tweetId) {
+        emitter(
+          LoadedState(
+            tweets: loadedState.tweets,
+            tweetId: null,
+          ),
+        );
+
+        return;
+      }
+
       emitter(
-        AppState(
-          tweets: state.tweets,
-          tweetIndex: null,
+        LoadedState(
+          tweets: loadedState.tweets,
+          tweetId: event.tweetId,
         ),
       );
-
-      return;
     }
-
-    emitter(
-      AppState(
-        tweets: state.tweets,
-        tweetIndex: event.tweetIndex,
-      ),
-    );
   }
 
   Future<void> _onEmojiPressedEvent(
     EmojiPressedEvent event,
     Emitter<AppState> emitter,
   ) async {
-    print('${state.tweetIndex}   ${event.pressedEmoji.name}');
-    emitter(
-      AppState(
-        tweets: state.tweets,
-        tweetIndex: null,
-      ),
-    );
+    if (state is LoadedState) {
+      final loadedState = state as LoadedState;
+      print('${loadedState.tweetId}   ${event.pressedEmoji.name}');
+      emitter(
+        LoadedState(
+          tweets: loadedState.tweets,
+          tweetId: null,
+        ),
+      );
+    }
   }
 }
