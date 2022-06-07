@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sql_test/src/domain/constants/available_emojis.dart';
 import 'package:sql_test/src/presentation/ui_kit/avatar_app.dart';
 import 'package:sql_test/src/presentation/ui_kit/emoji.dart';
 
@@ -7,7 +8,7 @@ class Tweet extends StatelessWidget {
   final String name;
   final String address;
   final String body;
-  final List<String> emojis;
+  final List<AvailableEmojis> emojis;
 
   const Tweet({
     Key? key,
@@ -71,7 +72,7 @@ class Tweet extends StatelessWidget {
               children: emojis
                   .map(
                     (emoji) => Emoji(
-                      emoji: emoji,
+                      emoji: emoji.unicode,
                     ),
                   )
                   .toList(),

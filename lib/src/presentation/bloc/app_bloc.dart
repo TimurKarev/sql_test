@@ -20,7 +20,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     if (state.tweetIndex == event.tweetIndex) {
       emitter(
         AppState(
-          tweetList: state.tweetList,
+          tweets: state.tweets,
           tweetIndex: null,
         ),
       );
@@ -30,7 +30,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
     emitter(
       AppState(
-        tweetList: state.tweetList,
+        tweets: state.tweets,
         tweetIndex: event.tweetIndex,
       ),
     );
@@ -43,7 +43,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     print('${state.tweetIndex}   ${event.pressedEmoji.name}');
     emitter(
       AppState(
-        tweetList: state.tweetList,
+        tweets: state.tweets,
         tweetIndex: null,
       ),
     );

@@ -23,22 +23,22 @@ extension AvailableEmojisExtentions on AvailableEmojis {
         throw UnimplementedError();
     }
   }
-}
 
-AvailableEmojis getFromUnicode(String unicode) {
-  switch (unicode) {
-    case '\u{FE0F}':
-      return AvailableEmojis.redHeart;
-    case '\u{1F44D}':
-      return AvailableEmojis.thumbsUp;
-    case '\u{1F525}':
-      return AvailableEmojis.fire;
-    case '\u{1F970}':
-      return AvailableEmojis.smilingFaceWithThreeHearts;
-    case '\u{1F622}':
-      return AvailableEmojis.cryingFace;
-    default:
-      throw UnimplementedError();
+  static AvailableEmojis getFromUnicode(String unicode) {
+    switch (unicode) {
+      case '\u{FE0F}':
+        return AvailableEmojis.redHeart;
+      case '\u{1F44D}':
+        return AvailableEmojis.thumbsUp;
+      case '\u{1F525}':
+        return AvailableEmojis.fire;
+      case '\u{1F970}':
+        return AvailableEmojis.smilingFaceWithThreeHearts;
+      case '\u{1F622}':
+        return AvailableEmojis.cryingFace;
+      default:
+        throw UnimplementedError();
+    }
   }
 }
 

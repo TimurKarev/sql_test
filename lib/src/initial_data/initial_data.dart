@@ -1,7 +1,7 @@
 abstract class InitialData {
   static const data = [
     {
-      'id': 1,
+      'id': 0,
       'name': 'TimurKarev',
       'address': '@timurkarev',
       'body':
@@ -21,7 +21,7 @@ abstract class InitialData {
       ],
     },
     {
-      'id': 1,
+      'id': 2,
       'name': 'TimurKarev',
       'address': '@timurkarev',
       'body': 'Съеш этих французких булочек',
@@ -31,20 +31,7 @@ abstract class InitialData {
       ],
     },
     {
-      'id': 1,
-      'name': 'TimurKarev',
-      'address': '@timurkarev',
-      'body': 'Съеш этих французких булочек',
-      'emojis': [
-        '\u{FE0F}',
-        '\u{1F44D}',
-        '\u{1F525}',
-        '\u{1F970}',
-        '\u{1F622}',
-      ],
-    },
-    {
-      'id': 1,
+      'id': 3,
       'name': 'TimurKarev',
       'address': '@timurkarev',
       'body': 'Съеш этих французких булочек',
@@ -57,7 +44,7 @@ abstract class InitialData {
       ],
     },
     {
-      'id': 1,
+      'id': 4,
       'name': 'TimurKarev',
       'address': '@timurkarev',
       'body': 'Съеш этих французких булочек',
@@ -70,7 +57,7 @@ abstract class InitialData {
       ],
     },
     {
-      'id': 1,
+      'id': 5,
       'name': 'TimurKarev',
       'address': '@timurkarev',
       'body': 'Съеш этих французких булочек',
@@ -83,7 +70,7 @@ abstract class InitialData {
       ],
     },
     {
-      'id': 1,
+      'id': 6,
       'name': 'TimurKarev',
       'address': '@timurkarev',
       'body': 'Съеш этих французких булочек',
@@ -96,7 +83,7 @@ abstract class InitialData {
       ],
     },
     {
-      'id': 1,
+      'id': 7,
       'name': 'TimurKarev',
       'address': '@timurkarev',
       'body': 'Съеш этих французких булочек',
@@ -109,7 +96,20 @@ abstract class InitialData {
       ],
     },
     {
-      'id': 1,
+      'id': 8,
+      'name': 'TimurKarev',
+      'address': '@timurkarev',
+      'body': 'Съеш этих французких булочек',
+      'emojis': [
+        '\u{FE0F}',
+        '\u{1F44D}',
+        '\u{1F525}',
+        '\u{1F970}',
+        '\u{1F622}',
+      ],
+    },
+    {
+      'id': 9,
       'name': 'TimurKarev',
       'address': '@timurkarev',
       'body': 'Съеш этих французких булочек',

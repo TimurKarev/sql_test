@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sql_test/src/domain/constants/available_emojis.dart';
 import 'package:sql_test/src/presentation/bloc/app_bloc.dart';
 import 'package:sql_test/src/presentation/ui/emoji_picker.dart';
 import 'package:sql_test/src/presentation/ui_kit/tweet.dart';
@@ -16,10 +15,11 @@ class LandingScreen extends StatelessWidget {
         body: SafeArea(
           child: BlocBuilder<AppBloc, AppState>(
             builder: (context, state) {
+              final tweetList = state.tweetList;
               return ListView.builder(
-                itemCount: state.tweetList.length,
+                itemCount: state.tweets.length,
                 itemBuilder: (_, index) {
-                  final model = state.tweetList[index];
+                  final model = tweetList[index];
                   return InkWell(
                     onTap: () {
                       context.read<AppBloc>().add(TweetPressedEvent(tweetIndex: index));
@@ -28,7 +28,7 @@ class LandingScreen extends StatelessWidget {
                       name: model.name,
                       address: model.address,
                       body: model.body,
-                      emojis: model.emojis.map((emoji) => emoji.unicode).toList(),
+                      emojis: model.emojis.toList(),
                     ),
                   );
                 },
