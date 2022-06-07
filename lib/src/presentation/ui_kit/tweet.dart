@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sql_test/src/presentation/ui_kit/avatar_app.dart';
 import 'package:sql_test/src/presentation/ui_kit/emoji.dart';
 
+//TODO: style tweet
 class Tweet extends StatelessWidget {
   final String name;
   final String address;

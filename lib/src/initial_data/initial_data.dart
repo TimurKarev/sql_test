@@ -16,7 +16,6 @@ abstract class InitialData {
       'emojis': [
         '\u{FE0F}',
         '\u{1F44D}',
-        '\u{1F525}',
         '\u{1F970}',
         '\u{1F622}',
       ],
@@ -29,9 +28,6 @@ abstract class InitialData {
       'emojis': [
         '\u{FE0F}',
         '\u{1F44D}',
-        '\u{1F525}',
-        '\u{1F970}',
-        '\u{1F622}',
       ],
     },
     {

@@ -27,12 +27,12 @@ class AppState extends Equatable {
 
   const AppState({
     required this.tweetList,
-    this.showBottomBar = false,
+    this.tweetIndex,
   });
 
   final List<TweetModel> tweetList;
-  final bool showBottomBar;
+  final int? tweetIndex;
 
   @override
-  List<Object?> get props => [tweetList, showBottomBar];
+  List<Object?> get props => [tweetList, tweetIndex];
 }

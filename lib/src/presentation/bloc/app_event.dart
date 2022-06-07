@@ -9,10 +9,18 @@ abstract class AppEvent extends Equatable {
 
 class TweetPressedEvent extends AppEvent {
   final int tweetIndex;
+
   const TweetPressedEvent({required this.tweetIndex});
 
   @override
   List<Object?> get props => [tweetIndex];
 }
 
-class EmojiPressedEvent extends AppEvent {}
+class EmojiPressedEvent extends AppEvent {
+  final AvailableEmojis pressedEmoji;
+
+  const EmojiPressedEvent({required this.pressedEmoji});
+
+  @override
+  List<Object?> get props => [pressedEmoji];
+}

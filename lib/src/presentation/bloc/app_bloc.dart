@@ -17,22 +17,34 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     TweetPressedEvent event,
     Emitter<AppState> emitter,
   ) async {
+    if (state.tweetIndex == event.tweetIndex) {
+      emitter(
+        AppState(
+          tweetList: state.tweetList,
+          tweetIndex: null,
+        ),
+      );
+
+      return;
+    }
+
     emitter(
       AppState(
         tweetList: state.tweetList,
-        showBottomBar: true,
+        tweetIndex: event.tweetIndex,
       ),
     );
   }
 
   Future<void> _onEmojiPressedEvent(
-      EmojiPressedEvent event,
-      Emitter<AppState> emitter,
-      ) async {
+    EmojiPressedEvent event,
+    Emitter<AppState> emitter,
+  ) async {
+    print('${state.tweetIndex}   ${event.pressedEmoji.name}');
     emitter(
       AppState(
         tweetList: state.tweetList,
-        showBottomBar: false,
+        tweetIndex: null,
       ),
     );
   }

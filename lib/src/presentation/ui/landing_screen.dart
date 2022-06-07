@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sql_test/src/domain/constants/available_emojis.dart';
 import 'package:sql_test/src/presentation/bloc/app_bloc.dart';
+import 'package:sql_test/src/presentation/ui/emoji_picker.dart';
 import 'package:sql_test/src/presentation/ui_kit/tweet.dart';
 
 class LandingScreen extends StatelessWidget {
@@ -36,15 +37,18 @@ class LandingScreen extends StatelessWidget {
           ),
         ),
         bottomNavigationBar: BlocBuilder<AppBloc, AppState>(
-          buildWhen: (previous, current) => previous.showBottomBar != current.showBottomBar,
+          buildWhen: (previous, current) => previous.tweetIndex != current.tweetIndex,
           builder: (context, state) {
             return BottomAppBar(
-              child: state.showBottomBar
-                  ? TextButton(
-                      onPressed: () {
-                        context.read<AppBloc>().add(EmojiPressedEvent());
+              child: state.tweetIndex != null
+                  ? EmojiPicker(
+                      onTap: (emoji) {
+                        context.read<AppBloc>().add(
+                              EmojiPressedEvent(
+                                pressedEmoji: emoji,
+                              ),
+                            );
                       },
-                      child: EmojiPicker(),
                     )
                   : null,
             );
