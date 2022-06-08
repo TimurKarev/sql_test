@@ -12,28 +12,6 @@ class InitialState extends AppState {}
 class FetchingState extends AppState {}
 
 class LoadedState extends AppState {
-  factory LoadedState.fromFake(List<Map<String, dynamic>> data) {
-    //TODO: make transfer object
-    Map<int, TweetModel> resilt = {};
-    for (final tweet in data) {
-      Set<AvailableEmojis> emojiSet = {};
-      if (tweet['emojis'].isNotEmpty) {
-        final emojis = tweet['emojis'] as List<String>;
-        for (final emoji in emojis) {
-          emojiSet.add(AvailableEmojisExtentions.getFromUnicode(emoji));
-        }
-      }
-      resilt[tweet['id']] = TweetModel(
-        id: tweet['id'],
-        name: tweet['name'],
-        address: tweet['address'],
-        body: tweet['body'],
-        emojis: emojiSet,
-      );
-    }
-    return LoadedState(tweets: resilt);
-  }
-
   const LoadedState({
     required this.tweets,
     this.tweetId,

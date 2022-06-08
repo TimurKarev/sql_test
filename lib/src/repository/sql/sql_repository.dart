@@ -13,9 +13,38 @@ class SqlRepository extends IRepository {
   Future<void> open() async => await _database.open();
 
   @override
-  Future<void> changeEmoji({required int id}) {
-    // TODO: implement changeEmoji
-    throw UnimplementedError();
+  Future<TweetModel?> changeEmoji({
+    required int id,
+    required Set<AvailableEmojis> emojis,
+  }) async {
+    //TODO: error handling
+    if (_db == null) {
+      return null;
+    }
+
+    final emojiString = emojis.map((emoji) => emoji.unicode).toList().join('#');
+
+    await _db!.rawUpdate('''
+      UPDATE ${SqlDatabase.tableName}
+      SET emojis = "$emojiString"
+      WHERE id = $id
+    ''');
+
+    final tweetList = await _db!.query(SqlDatabase.tableName, where: 'id = $id');
+
+    if (tweetList.isNotEmpty) {
+      final tweet = tweetList.first;
+
+      return TweetModel(
+        id: tweet['id'] as int,
+        name: tweet['name'] as String,
+        address: tweet['address'] as String,
+        body: tweet['body'] as String,
+        emojis: _getEmojis(tweet['emojis'] as String?),
+      );
+    }
+
+    return null;
   }
 
   @override
@@ -25,6 +54,7 @@ class SqlRepository extends IRepository {
       return {};
     }
 
+    //TODO: to RAW quiery
     final tweets = await _db!.query(SqlDatabase.tableName);
     final result = <int, TweetModel>{};
     for (final tweet in tweets) {

@@ -67,13 +67,29 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   ) async {
     if (state is LoadedState) {
       final loadedState = state as LoadedState;
-      print('${loadedState.tweetId}   ${event.pressedEmoji.name}');
-      emitter(
-        LoadedState(
-          tweets: loadedState.tweets,
-          tweetId: null,
-        ),
-      );
+
+      if (loadedState.tweetId != null) {
+        final emojis = loadedState.tweets[loadedState.tweetId]!.emojis;
+        if (emojis.contains(event.pressedEmoji)) {
+          emojis.remove(event.pressedEmoji);
+        } else {
+          emojis.add(event.pressedEmoji);
+        }
+
+        final tweet = await _repository.changeEmoji(
+          id: loadedState.tweetId!,
+          emojis: emojis,
+        );
+
+        //TODO: need something better
+        loadedState.tweets[loadedState.tweetId!] = tweet!;
+        emitter(
+          LoadedState(
+            tweets: loadedState.tweets,
+            tweetId: null,
+          ),
+        );
+      }
     }
   }
 
