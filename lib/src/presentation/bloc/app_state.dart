@@ -9,6 +9,8 @@ abstract class AppState extends Equatable {
 
 class InitialState extends AppState {}
 
+class FetchingState extends AppState {}
+
 class LoadedState extends AppState {
   factory LoadedState.fromFake(List<Map<String, dynamic>> data) {
     //TODO: make transfer object

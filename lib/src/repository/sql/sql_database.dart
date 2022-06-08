@@ -3,7 +3,7 @@ import 'package:sql_test/src/initial_data/initial_data.dart';
 
 class SqlDatabase {
   static const _databaseName = 'database.db';
-  static const _tableName = 'tweets';
+  static const tableName = 'tweets';
   static const _id = 'id';
   static const _name = 'name';
   static const _address = 'address';
@@ -11,7 +11,7 @@ class SqlDatabase {
   static const _emojis = 'emojis';
   static const _emojiSeparator = '#';
 
-  late final Database? _db;
+  Database? _db;
 
   static final SqlDatabase _instance = SqlDatabase._internal();
 
@@ -19,13 +19,11 @@ class SqlDatabase {
     return _instance;
   }
 
-  SqlDatabase._internal() {
-    _init();
-  }
+  SqlDatabase._internal();
 
   Database? get db => _db;
 
-  Future<void> _init() async {
+  Future<void> open() async {
     final path = await getDatabasesPath();
     _db = await openDatabase(
       '$path/$_databaseName',
@@ -37,7 +35,7 @@ class SqlDatabase {
 
   Future<void> _onCreate(Database db, int version) async {
     await db.execute('''
-    CREATE TABLE $_tableName (
+    CREATE TABLE $tableName (
     $_id INTEGER PRIMARY KEY AUTOINCREMENT,
     $_name TEXT NOT NULL,
     $_address TEXT NOT NULL,
@@ -47,14 +45,27 @@ class SqlDatabase {
   }
 
   Future<void> _onOpen(Database db) async {
-    final table = await db.rawQuery('SELECT * from $_tableName');
+    final table = await db.rawQuery('SELECT * from $tableName');
     if (table.isEmpty) {
       for (var tweet in InitialData.data) {
+        final emojis = _getEmojis(tweet['emojis'] as List<dynamic>);
         db.rawInsert('''
-        INSERT INTO $_tableName ($_id, $_name, $_address, $_body)
-        VALUES (${tweet['id']}, "${tweet['name']}", "${tweet['address']}", "${tweet['body']}")
+        INSERT INTO $tableName ($_id, $_name, $_address, $_body, $_emojis)
+        VALUES (${tweet['id']}, "${tweet['name']}", "${tweet['address']}", "${tweet['body']}", "$emojis")
         ''');
       }
     }
+  }
+
+  Future<void> close() async {
+    await _db?.close();
+  }
+
+  //TODO: move to data transfers
+  String _getEmojis(List<dynamic> emojisList) {
+    if (emojisList.isEmpty) {
+      return '';
+    }
+    return emojisList.join(SqlDatabase._emojiSeparator);
   }
 }

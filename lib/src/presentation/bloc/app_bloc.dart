@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:sql_test/src/domain/constants/available_emojis.dart';
-import 'package:sql_test/src/initial_data/initial_data.dart';
 import 'package:sql_test/src/presentation/model/tweet_model.dart';
 import 'package:sql_test/src/repository/i_repository.dart';
 import 'package:sql_test/src/repository/sql/sql_repository.dart';
@@ -24,7 +23,16 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     InitialEvent event,
     Emitter<AppState> emitter,
   ) async {
-    emitter(LoadedState.fromFake(InitialData.data));
+    emitter(
+      FetchingState(),
+    );
+    await _repository.open();
+    final tweetsMap = await _repository.getTweets();
+    emitter(
+      LoadedState(
+        tweets: tweetsMap,
+      ),
+    );
   }
 
   Future<void> _onTweetPressedEvent(
@@ -67,5 +75,11 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         ),
       );
     }
+  }
+
+  @override
+  Future<void> close() async {
+    _repository.closeDataBase();
+    return super.close();
   }
 }
