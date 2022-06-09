@@ -1,6 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:sql_test/src/repository/sql/sql_tweet_database.dart';
 
+///SqlApi class for interacting with SqlDatabase
 class SqlApi {
   final String tableName;
   final Database _db;

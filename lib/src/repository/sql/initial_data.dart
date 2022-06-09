@@ -1,3 +1,4 @@
+///Initial data for first database creation
 abstract class InitialData {
   static const data = [
     {

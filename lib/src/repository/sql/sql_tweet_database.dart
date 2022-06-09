@@ -1,10 +1,10 @@
 import 'package:sqflite/sqflite.dart';
+import 'package:sql_test/src/repository/sql/data_transformer.dart';
 import 'package:sql_test/src/repository/sql/initial_data.dart';
 
-//TODO: Error handling
-//TODO: New Api Layer
-//TODO: Const file
-
+///Concrete implementation of database with hardcoded name tables and columns
+///realise open/creation and close operations
+///provide Database object
 class SqlTweetDatabase {
   static const _databaseName = 'database.db';
   static const _tableName = 'tweets';
@@ -13,7 +13,6 @@ class SqlTweetDatabase {
   static const _address = 'address';
   static const _body = 'body';
   static const _emojis = 'emojis';
-  static const _emojiSeparator = '#';
 
   late final Database _db;
 
@@ -44,15 +43,6 @@ class SqlTweetDatabase {
     await _db.close();
   }
 
-  //TODO: move to data transfers
-  String _getEmojis(List<dynamic> emojisList) {
-    if (emojisList.isEmpty) {
-      return '';
-    }
-
-    return emojisList.join(SqlTweetDatabase._emojiSeparator);
-  }
-
   Future<void> _onCreate(Database database) async {
     await database.execute('''
     CREATE TABLE $_tableName (
@@ -69,7 +59,7 @@ class SqlTweetDatabase {
     if (table.isEmpty) {
       //TODO: to layer
       for (var tweet in InitialData.data) {
-        final emojis = _getEmojis(tweet['emojis'] as List<dynamic>);
+        final emojis = DataTransformer.fromEmojisToString(tweet['emojis'] as List<dynamic>);
         database.rawInsert('''
         INSERT INTO $_tableName ($_id, $_name, $_address, $_body, $_emojis)
         VALUES (${tweet['id']}, "${tweet['name']}", "${tweet['address']}", "${tweet['body']}", "$emojis")
