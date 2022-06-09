@@ -3,7 +3,6 @@ import 'package:sql_test/src/presentation/model/tweet_model.dart';
 import 'package:sql_test/src/repository/i_repository.dart';
 import 'package:sql_test/src/repository/sql/sql_database.dart';
 
-
 class SqlRepository extends IRepository {
   final _database = SqlDatabase();
 
@@ -60,7 +59,6 @@ class SqlRepository extends IRepository {
   Future<void> closeDataBase() async {
     _database.close();
   }
-
 
   //TODO: move to transform
   Set<AvailableEmojis> _getEmojis(String? emojisString) {
