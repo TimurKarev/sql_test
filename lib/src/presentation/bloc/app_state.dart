@@ -1,22 +1,19 @@
 part of 'app_bloc.dart';
 
 abstract class AppState extends Equatable {
-  const AppState();
-
   @override
   List<Object?> get props => [];
+
+  const AppState();
 }
 
 class InitialState extends AppState {}
 
 class FetchingState extends AppState {}
 
-class LoadedState extends AppState {
-  const LoadedState({
-    required this.tweets,
-    this.tweetId,
-  });
+class ErrorState extends AppState {}
 
+class LoadedState extends AppState {
   final Map<int, TweetModel> tweets;
   final int? tweetId;
 
@@ -25,9 +22,14 @@ class LoadedState extends AppState {
     for (final tweet in tweets.entries) {
       result.add(tweet.value);
     }
+
     return result;
   }
 
   @override
   List<Object?> get props => [tweets, tweetId];
+  const LoadedState({
+    required this.tweets,
+    this.tweetId,
+  });
 }
