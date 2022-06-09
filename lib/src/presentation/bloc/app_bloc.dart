@@ -15,7 +15,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         super(InitialState()) {
     on<InitialEvent>((_, emitter) => _onInitialEvent(emitter));
     on<TweetPressedEvent>(_onTweetPressedEvent);
-    on<EmojiPressedEvent>(_onEmojiPressedEvent);
+    on<EmojiPressedEvent>((event, _) => _onEmojiPressedEvent(event));
 
     add(InitialEvent());
   }
@@ -35,10 +35,11 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     );
 
     await _repository.init();
-    final tweetsMap = await _repository.getTweets();
-    emitter(
-      LoadedState(
-        tweets: tweetsMap,
+
+    await emitter.forEach<Map<int, TweetModel>>(
+      _repository.tweetStream(),
+      onData: (tweetMap) => LoadedState(
+        tweets: tweetMap,
       ),
     );
   }
@@ -71,7 +72,6 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
   Future<void> _onEmojiPressedEvent(
     EmojiPressedEvent event,
-    Emitter<AppState> emitter,
   ) async {
     if (state is LoadedState) {
       final loadedState = state as LoadedState;
@@ -84,18 +84,9 @@ class AppBloc extends Bloc<AppEvent, AppState> {
           emojis.add(event.pressedEmoji);
         }
 
-        final tweet = await _repository.changeEmoji(
+        await _repository.changeEmoji(
           id: loadedState.tweetId!,
           emojis: emojis,
-        );
-
-        //TODO: need something better
-        loadedState.tweets[loadedState.tweetId!] = tweet!;
-        emitter(
-          LoadedState(
-            tweets: loadedState.tweets,
-            tweetId: null,
-          ),
         );
       }
     }

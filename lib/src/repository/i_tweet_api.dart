@@ -3,9 +3,9 @@ import 'package:sql_test/src/presentation/model/tweet_model.dart';
 
 abstract class ITweetApi {
   Future<void> init();
-  Future<Map<int, TweetModel>> getTweets();
+  Stream<Map<int, TweetModel>> tweetStream();
 
-  Future<TweetModel?> changeEmoji({
+  Future<void> changeEmoji({
     required int id,
     required Set<AvailableEmojis> emojis,
   });

@@ -1,3 +1,4 @@
+import 'package:rxdart/subjects.dart';
 import 'package:sql_test/src/domain/constants/available_emojis.dart';
 import 'package:sql_test/src/presentation/model/tweet_model.dart';
 import 'package:sql_test/src/repository/i_tweet_api.dart';
@@ -7,17 +8,27 @@ import 'package:sql_test/src/repository/sql/sql_tweet_database.dart';
 class SqlTweetApi extends ITweetApi {
   late final SqlRepository _api;
 
+  final _todoStreamController = BehaviorSubject<Map<int, TweetModel>>.seeded(const {});
+
   @override
   Future<void> init() async {
     final api = await SqlRepository.createTweetApi();
     _api = api;
+
+    final tweetMap = await _getTweets();
+    _todoStreamController.add(tweetMap);
   }
 
   @override
-  Future<TweetModel?> changeEmoji({
+  Stream<Map<int, TweetModel>> tweetStream() => _todoStreamController.asBroadcastStream();
+
+  @override
+  Future<void> changeEmoji({
     required int id,
     required Set<AvailableEmojis> emojis,
   }) async {
+    final tweetMap = _todoStreamController.value;
+
     final emojiString = emojis.map((emoji) => emoji.unicode).toList().join('#');
 
     await _api.updateTextColumnById(
@@ -32,17 +43,20 @@ class SqlTweetApi extends ITweetApi {
       id: id,
     );
 
-    return TweetModel(
+    final newTweet = TweetModel(
       id: tweet['id'] as int,
       name: tweet['name'] as String,
       address: tweet['address'] as String,
       body: tweet['body'] as String,
       emojis: _getEmojis(tweet['emojis'] as String?),
     );
+
+    tweetMap[newTweet.id] = newTweet;
+
+    _todoStreamController.add(tweetMap);
   }
 
-  @override
-  Future<Map<int, TweetModel>> getTweets() async {
+  Future<Map<int, TweetModel>> _getTweets() async {
     final tweets = await _api.getTable(SqlTweetDatabase.tableName);
     final result = <int, TweetModel>{};
     for (final tweet in tweets) {
