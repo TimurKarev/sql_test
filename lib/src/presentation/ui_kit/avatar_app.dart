@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sql_test/src/presentation/constants/ui_constant.dart';
 
 class AvatarApp extends StatelessWidget {
   final String? text;
@@ -11,9 +12,11 @@ class AvatarApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-      radius: 24.0,
+      backgroundColor: Theme.of(context).backgroundColor,
+      radius: UiConstant.avatarRadius,
       child: Text(
         _getLetter(),
+        style: Theme.of(context).textTheme.headline5,
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sql_test/src/domain/model/available_emojis.dart';
+import 'package:sql_test/src/presentation/constants/ui_constant.dart';
 import 'package:sql_test/src/presentation/ui_kit/emoji.dart';
 
 class EmojiPicker extends StatelessWidget {
@@ -13,9 +14,9 @@ class EmojiPicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blue,
+      color: Theme.of(context).hoverColor,
       child: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(UiConstant.pickerPadding),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: EmojisModel.values
@@ -24,7 +25,7 @@ class EmojiPicker extends StatelessWidget {
                   onTap: () => onTap(emoji),
                   child: Emoji(
                     emoji: emoji.unicode,
-                    size: 30.0, //TODO: move to constant
+                    size: UiConstant.pickerEmojiSize,
                   ),
                 ),
               )

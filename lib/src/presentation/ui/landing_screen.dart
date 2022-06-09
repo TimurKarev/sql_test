@@ -18,10 +18,12 @@ class LandingScreen extends StatelessWidget {
             builder: (context, state) {
               if (state is LoadedState) {
                 final tweetList = state.tweetList;
+
                 return ListView.builder(
                   itemCount: state.tweets.length,
                   itemBuilder: (_, index) {
                     final model = tweetList[index];
+
                     return InkWell(
                       onTap: () {
                         context.read<AppBloc>().add(

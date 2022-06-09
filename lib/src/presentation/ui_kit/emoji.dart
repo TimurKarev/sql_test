@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sql_test/src/presentation/constants/ui_constant.dart';
 
 class Emoji extends StatelessWidget {
   final String emoji;
@@ -7,7 +8,7 @@ class Emoji extends StatelessWidget {
   const Emoji({
     Key? key,
     required this.emoji,
-    this.size = 20.0, //TODO: move to constant
+    this.size = UiConstant.tweetEmojiSize,
   }) : super(key: key);
 
   @override

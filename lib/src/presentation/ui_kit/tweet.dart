@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sql_test/src/domain/model/available_emojis.dart';
+import 'package:sql_test/src/presentation/constants/ui_constant.dart';
 import 'package:sql_test/src/presentation/ui_kit/avatar_app.dart';
 import 'package:sql_test/src/presentation/ui_kit/emoji.dart';
 
-//TODO: style tweet
 class Tweet extends StatelessWidget {
   final String name;
   final String address;
@@ -21,12 +21,18 @@ class Tweet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 0.0,
+      elevation: UiConstant.cardElevation,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
+        side: BorderSide(
+          color: Theme.of(context).backgroundColor,
+          width: UiConstant.cardBorderThickness,
+        ),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(UiConstant.cardBorderRadius),
+        ),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(UiConstant.cardPadding),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
@@ -36,43 +42,46 @@ class Tweet extends StatelessWidget {
                   text: name,
                 ),
                 const SizedBox(
-                  width: 14.0,
+                  width: UiConstant.cardAvatarRightPadding,
                 ),
                 Column(
                   children: [
-                    Text(name),
+                    Text(
+                      name,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
                     Text(
                       address,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
               ],
             ),
-            const SizedBox(
-              height: 8.0,
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                body,
-                style: const TextStyle(
-                  fontSize: 14.0,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: UiConstant.cardTextPadding),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  body,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ),
             ),
             if (emojis.isNotEmpty)
-              const Divider(
-                thickness: 2.0,
+              Divider(
+                thickness: UiConstant.cardDividerThickness,
+                color: Theme.of(context).backgroundColor,
               ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: emojis
                   .map(
-                    (emoji) => Emoji(
-                      emoji: emoji.unicode,
+                    (emoji) => Padding(
+                      padding: const EdgeInsets.only(right: UiConstant.cardEmojiPadding),
+                      child: Emoji(
+                        emoji: emoji.unicode,
+                      ),
                     ),
                   )
                   .toList(),
