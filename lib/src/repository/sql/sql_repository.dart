@@ -4,7 +4,6 @@ import 'package:sql_test/src/repository/i_repository.dart';
 import 'package:sql_test/src/repository/sql/sql_database.dart';
 import 'package:sql_test/src/repository/sql/sql_tweet_api.dart';
 
-
 class SqlTweetApi extends ITweetApi {
   late final SqlSimpleRepository _api;
 
