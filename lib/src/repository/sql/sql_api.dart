@@ -1,4 +1,5 @@
 import 'package:sqflite/sqflite.dart';
+import 'package:sql_test/src/repository/repository_exeptions.dart';
 import 'package:sql_test/src/repository/sql/sql_tweet_database.dart';
 
 ///SqlApi class for interacting with SqlDatabase
@@ -23,7 +24,10 @@ class SqlApi {
     try {
       return _db.query(tableName);
     } catch (error) {
-      throw 'getTable -  query error';
+      throw FetchTableException(
+        systemError: error.toString(),
+        userError: 'getTable -  query error',
+      );
     }
   }
 
@@ -33,7 +37,10 @@ class SqlApi {
     final row = await _db.query(tableName, where: 'id = $id');
 
     if (row.isEmpty) {
-      throw 'getRowByID - row is empty';
+      throw const FetchRowException(
+        systemError: '',
+        userError: 'getTable -  query error',
+      );
     }
 
     return row.first;
@@ -50,8 +57,11 @@ class SqlApi {
         {column: text},
         where: 'id = $id',
       );
-    } catch (e) {
-      throw 'updateTextColumnById - update error';
+    } catch (error) {
+      throw FetchRowException(
+        systemError: error.toString(),
+        userError: 'getTable -  query error',
+      );
     }
   }
 }

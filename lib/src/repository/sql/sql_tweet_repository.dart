@@ -36,7 +36,9 @@ class SqlTweetRepository extends ITweetRepository {
   }) async {
     final tweetMap = _todoStreamController.value;
 
-    final emojiString = emojis.map((emoji) => emoji.unicode).toList().join('#');
+    final emojiString = DataTransformer.fromEmojisToString(
+      emojis.toList(),
+    );
 
     await _api.updateTextColumnById(
       id: id,
