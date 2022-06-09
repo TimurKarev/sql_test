@@ -1,11 +1,11 @@
 import 'package:rxdart/subjects.dart';
 import 'package:sql_test/src/domain/constants/available_emojis.dart';
 import 'package:sql_test/src/presentation/model/tweet_model.dart';
-import 'package:sql_test/src/repository/i_tweet_api.dart';
+import 'package:sql_test/src/repository/i_tweet_repository.dart';
 import 'package:sql_test/src/repository/sql/sql_repository.dart';
 import 'package:sql_test/src/repository/sql/sql_tweet_database.dart';
 
-class SqlTweetApi extends ITweetApi {
+class SqlTweetApi extends ITweetRepository {
   late final SqlRepository _api;
 
   final _todoStreamController = BehaviorSubject<Map<int, TweetModel>>.seeded(const {});

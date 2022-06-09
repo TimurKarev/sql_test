@@ -2,15 +2,15 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:sql_test/src/domain/constants/available_emojis.dart';
 import 'package:sql_test/src/presentation/model/tweet_model.dart';
-import 'package:sql_test/src/repository/i_tweet_api.dart';
+import 'package:sql_test/src/repository/i_tweet_repository.dart';
 
 part 'app_event.dart';
 part 'app_state.dart';
 
 class AppBloc extends Bloc<AppEvent, AppState> {
-  final ITweetApi _repository;
+  final ITweetRepository _repository;
 
-  AppBloc(ITweetApi repository)
+  AppBloc(ITweetRepository repository)
       : _repository = repository,
         super(InitialState()) {
     on<InitialEvent>((_, emitter) => _onInitialEvent(emitter));

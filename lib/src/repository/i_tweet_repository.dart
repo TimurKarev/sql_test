@@ -1,7 +1,7 @@
 import 'package:sql_test/src/domain/constants/available_emojis.dart';
 import 'package:sql_test/src/presentation/model/tweet_model.dart';
 
-abstract class ITweetApi {
+abstract class ITweetRepository {
   Future<void> init();
   Stream<Map<int, TweetModel>> tweetStream();
 
