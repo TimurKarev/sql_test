@@ -17,8 +17,6 @@ class SqlTweetDatabase {
 
   Database? _db;
 
-  static final SqlTweetDatabase _instance = SqlTweetDatabase._();
-
   Database get db {
     final Database database;
     try {
@@ -28,10 +26,6 @@ class SqlTweetDatabase {
     }
 
     return database;
-  }
-
-  factory SqlTweetDatabase() {
-    return _instance;
   }
 
   Future<void> open() async {

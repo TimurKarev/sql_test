@@ -2,8 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:sql_test/src/domain/constants/available_emojis.dart';
 import 'package:sql_test/src/presentation/model/tweet_model.dart';
-import 'package:sql_test/src/repository/i_repository.dart';
-import 'package:sql_test/src/repository/sql/sql_repository.dart';
+import 'package:sql_test/src/repository/i_tweet_api.dart';
+import 'package:sql_test/src/repository/sql/sql_tweet_api.dart';
 
 part 'app_event.dart';
 part 'app_state.dart';
