@@ -1,5 +1,5 @@
 import 'package:sqflite/sqflite.dart';
-import 'package:sql_test/src/initial_data/initial_data.dart';
+import 'package:sql_test/src/repository/sql/initial_data.dart';
 
 //TODO: Error handling
 //TODO: New Api Layer
@@ -7,7 +7,7 @@ import 'package:sql_test/src/initial_data/initial_data.dart';
 
 class SqlTweetDatabase {
   static const _databaseName = 'database.db';
-  static const tableName = 'tweets';
+  static const _tableName = 'tweets';
   static const _id = 'id';
   static const _name = 'name';
   static const _address = 'address';
@@ -15,12 +15,14 @@ class SqlTweetDatabase {
   static const _emojis = 'emojis';
   static const _emojiSeparator = '#';
 
-  Database? _db;
+  late final Database _db;
+
+  String get tableName => _tableName;
 
   Database get db {
     final Database database;
     try {
-      database = _db!;
+      database = _db;
     } catch (e) {
       throw 'db getter: _db == null or something';
     }
@@ -39,7 +41,7 @@ class SqlTweetDatabase {
   }
 
   Future<void> close() async {
-    await _db?.close();
+    await _db.close();
   }
 
   //TODO: move to data transfers
@@ -53,7 +55,7 @@ class SqlTweetDatabase {
 
   Future<void> _onCreate(Database database) async {
     await database.execute('''
-    CREATE TABLE $tableName (
+    CREATE TABLE $_tableName (
     $_id INTEGER PRIMARY KEY AUTOINCREMENT,
     $_name TEXT NOT NULL,
     $_address TEXT NOT NULL,
@@ -63,13 +65,13 @@ class SqlTweetDatabase {
   }
 
   Future<void> _onOpen(Database database) async {
-    final table = await database.query(tableName);
+    final table = await database.query(_tableName);
     if (table.isEmpty) {
       //TODO: to layer
       for (var tweet in InitialData.data) {
         final emojis = _getEmojis(tweet['emojis'] as List<dynamic>);
         database.rawInsert('''
-        INSERT INTO $tableName ($_id, $_name, $_address, $_body, $_emojis)
+        INSERT INTO $_tableName ($_id, $_name, $_address, $_body, $_emojis)
         VALUES (${tweet['id']}, "${tweet['name']}", "${tweet['address']}", "${tweet['body']}", "$emojis")
         ''');
       }

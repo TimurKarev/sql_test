@@ -3,7 +3,6 @@ import 'package:sql_test/src/domain/constants/available_emojis.dart';
 import 'package:sql_test/src/presentation/model/tweet_model.dart';
 import 'package:sql_test/src/repository/i_tweet_repository.dart';
 import 'package:sql_test/src/repository/sql/sql_api.dart';
-import 'package:sql_test/src/repository/sql/sql_tweet_database.dart';
 
 class SqlTweetRepository extends ITweetRepository {
   late final SqlApi _api;
@@ -23,6 +22,11 @@ class SqlTweetRepository extends ITweetRepository {
   Stream<Map<int, TweetModel>> tweetStream() => _todoStreamController.asBroadcastStream();
 
   @override
+  Future<void> closeDataBase() async {
+    await _api.close();
+  }
+
+  @override
   Future<void> changeEmoji({
     required int id,
     required Set<AvailableEmojis> emojis,
@@ -32,14 +36,12 @@ class SqlTweetRepository extends ITweetRepository {
     final emojiString = emojis.map((emoji) => emoji.unicode).toList().join('#');
 
     await _api.updateTextColumnById(
-      tableName: SqlTweetDatabase.tableName,
       id: id,
       column: 'emojis',
       text: emojiString,
     );
 
     final tweet = await _api.getRowByID(
-      tableName: SqlTweetDatabase.tableName,
       id: id,
     );
 
@@ -57,7 +59,7 @@ class SqlTweetRepository extends ITweetRepository {
   }
 
   Future<Map<int, TweetModel>> _getTweets() async {
-    final tweets = await _api.getTable(SqlTweetDatabase.tableName);
+    final tweets = await _api.getTable();
     final result = <int, TweetModel>{};
     for (final tweet in tweets) {
       //TODO: create constants file fo tables
@@ -71,11 +73,6 @@ class SqlTweetRepository extends ITweetRepository {
     }
 
     return result;
-  }
-
-  @override
-  Future<void> closeDataBase() async {
-    await _api.close();
   }
 
   //TODO: move to transform
