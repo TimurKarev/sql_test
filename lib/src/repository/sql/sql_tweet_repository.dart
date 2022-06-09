@@ -5,7 +5,7 @@ import 'package:sql_test/src/repository/i_tweet_repository.dart';
 import 'package:sql_test/src/repository/sql/sql_repository.dart';
 import 'package:sql_test/src/repository/sql/sql_tweet_database.dart';
 
-class SqlTweetApi extends ITweetRepository {
+class SqlTweetRepository extends ITweetRepository {
   late final SqlRepository _api;
 
   final _todoStreamController = BehaviorSubject<Map<int, TweetModel>>.seeded(const {});

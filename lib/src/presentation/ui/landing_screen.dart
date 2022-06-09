@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sql_test/src/presentation/bloc/app_bloc.dart';
 import 'package:sql_test/src/presentation/ui/emoji_picker.dart';
 import 'package:sql_test/src/presentation/ui_kit/tweet.dart';
-import 'package:sql_test/src/repository/sql/sql_tweet_api.dart';
+import 'package:sql_test/src/repository/sql/sql_tweet_repository.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({Key? key}) : super(key: key);
@@ -11,7 +11,7 @@ class LandingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AppBloc(RepositoryProvider.of<SqlTweetApi>(context)),
+      create: (context) => AppBloc(RepositoryProvider.of<SqlTweetRepository>(context)),
       child: Scaffold(
         body: SafeArea(
           child: BlocBuilder<AppBloc, AppState>(
