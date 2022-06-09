@@ -57,7 +57,6 @@ class SqlTweetDatabase {
   Future<void> _onOpen(Database database) async {
     final table = await database.query(_tableName);
     if (table.isEmpty) {
-      //TODO: to layer
       for (var tweet in InitialData.data) {
         final emojis = DataTransformer.fromEmojisToString(tweet['emojis'] as List<dynamic>);
         database.rawInsert('''
