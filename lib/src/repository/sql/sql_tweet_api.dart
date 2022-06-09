@@ -2,13 +2,11 @@ import 'package:sqflite/sqflite.dart';
 import 'package:sql_test/src/repository/sql/sql_database.dart';
 
 class SqlSimpleRepository {
-
   final Database _db;
 
   const SqlSimpleRepository(Database db) : _db = db;
 
-  static Future<SqlSimpleRepository>  createTweetApi() async {
-
+  static Future<SqlSimpleRepository> createTweetApi() async {
     final database = SqlTweetDatabase();
     await database.open();
 
