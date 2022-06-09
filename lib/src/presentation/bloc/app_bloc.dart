@@ -87,16 +87,16 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
         try {
           if (emojis.contains(event.pressedEmoji)) {
-                    emojis.remove(event.pressedEmoji);
-                  } else {
-                    emojis.add(event.pressedEmoji);
-                  }
+            emojis.remove(event.pressedEmoji);
+          } else {
+            emojis.add(event.pressedEmoji);
+          }
 
           await _repository.changeEmoji(
-                    id: loadedState.tweetId!,
-                    emojis: emojis,
-                  );
-        }  on RepositoryException {
+            id: loadedState.tweetId!,
+            emojis: emojis,
+          );
+        } on RepositoryException {
           emitter(ErrorState());
           add(InitialEvent());
         }
