@@ -5,7 +5,7 @@ import 'package:sql_test/src/initial_data/initial_data.dart';
 //TODO: New Api Layer
 //TODO: Const file
 
-class SqlDatabase {
+class SqlTweetDatabase {
   static const _databaseName = 'database.db';
   static const tableName = 'tweets';
   static const _id = 'id';
@@ -17,7 +17,7 @@ class SqlDatabase {
 
   Database? _db;
 
-  static final SqlDatabase _instance = SqlDatabase._internal();
+  static final SqlTweetDatabase _instance = SqlTweetDatabase._();
 
   Database get db {
     final Database database;
@@ -30,11 +30,9 @@ class SqlDatabase {
     return database;
   }
 
-  factory SqlDatabase() {
+  factory SqlTweetDatabase() {
     return _instance;
   }
-
-  SqlDatabase._internal();
 
   Future<void> open() async {
     final path = await getDatabasesPath();
@@ -46,68 +44,6 @@ class SqlDatabase {
     );
   }
 
-  Future<List<Map<String, Object?>>> getTable(String table) {
-    try {
-      return db.query(table);
-    } catch (error) {
-      throw 'getTable -  query error';
-    }
-  }
-
-  Future<Map<String, Object?>> getRowByID({
-    required String tableName,
-    required int id,
-  }) async {
-    final row = await db.query(tableName, where: 'id = $id');
-
-    if (row.isEmpty) {
-      throw 'getRowByID - row is empty';
-    }
-
-    return row.first;
-  }
-
-  Future<void> updateTextColumnById({
-    required String tableName,
-    required int id,
-    required String column,
-    required String text,
-  }) async {
-    try {
-      await db.update(
-        tableName,
-        {column: "'$text'"},
-        where: 'id = $id',
-      );
-    } catch (e) {
-      throw 'updateTextColumnById - update error';
-    }
-  }
-
-  Future<void> _onCreate(Database db) async {
-    await db.execute('''
-    CREATE TABLE $tableName (
-    $_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    $_name TEXT NOT NULL,
-    $_address TEXT NOT NULL,
-    $_body TEXT NOT NULL,
-    $_emojis TEXT)
-    ''');
-  }
-
-  Future<void> _onOpen(Database db) async {
-    final table = await getTable(tableName);
-    if (table.isEmpty) {
-      for (var tweet in InitialData.data) {
-        final emojis = _getEmojis(tweet['emojis'] as List<dynamic>);
-        db.rawInsert('''
-        INSERT INTO $tableName ($_id, $_name, $_address, $_body, $_emojis)
-        VALUES (${tweet['id']}, "${tweet['name']}", "${tweet['address']}", "${tweet['body']}", "$emojis")
-        ''');
-      }
-    }
-  }
-
   Future<void> close() async {
     await _db?.close();
   }
@@ -117,6 +53,32 @@ class SqlDatabase {
     if (emojisList.isEmpty) {
       return '';
     }
-    return emojisList.join(SqlDatabase._emojiSeparator);
+
+    return emojisList.join(SqlTweetDatabase._emojiSeparator);
+  }
+
+  Future<void> _onCreate(Database database) async {
+    await database.execute('''
+    CREATE TABLE $tableName (
+    $_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    $_name TEXT NOT NULL,
+    $_address TEXT NOT NULL,
+    $_body TEXT NOT NULL,
+    $_emojis TEXT)
+    ''');
+  }
+
+  Future<void> _onOpen(Database database) async {
+    final table = await database.query(tableName);
+    if (table.isEmpty) {
+      //TODO: to layer
+      for (var tweet in InitialData.data) {
+        final emojis = _getEmojis(tweet['emojis'] as List<dynamic>);
+        database.rawInsert('''
+        INSERT INTO $tableName ($_id, $_name, $_address, $_body, $_emojis)
+        VALUES (${tweet['id']}, "${tweet['name']}", "${tweet['address']}", "${tweet['body']}", "$emojis")
+        ''');
+      }
+    }
   }
 }

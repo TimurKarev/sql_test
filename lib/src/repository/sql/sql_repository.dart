@@ -2,12 +2,17 @@ import 'package:sql_test/src/domain/constants/available_emojis.dart';
 import 'package:sql_test/src/presentation/model/tweet_model.dart';
 import 'package:sql_test/src/repository/i_repository.dart';
 import 'package:sql_test/src/repository/sql/sql_database.dart';
+import 'package:sql_test/src/repository/sql/sql_tweet_api.dart';
 
-class SqlRepository extends IRepository {
-  final _database = SqlDatabase();
+
+class SqlTweetApi extends ITweetApi {
+  late final SqlSimpleRepository _api;
 
   @override
-  Future<void> open() async => await _database.open();
+  Future<void> init() async {
+    final api = await SqlSimpleRepository.createTweetApi();
+    _api = api;
+  }
 
   @override
   Future<TweetModel?> changeEmoji({
@@ -16,15 +21,15 @@ class SqlRepository extends IRepository {
   }) async {
     final emojiString = emojis.map((emoji) => emoji.unicode).toList().join('#');
 
-    await _database.updateTextColumnById(
-      tableName: SqlDatabase.tableName,
+    await _api.updateTextColumnById(
+      tableName: SqlTweetDatabase.tableName,
       id: id,
       column: 'emojis',
       text: '"$emojiString"',
     );
 
-    final tweet = await _database.getRowByID(
-      tableName: SqlDatabase.tableName,
+    final tweet = await _api.getRowByID(
+      tableName: SqlTweetDatabase.tableName,
       id: id,
     );
 
@@ -39,7 +44,7 @@ class SqlRepository extends IRepository {
 
   @override
   Future<Map<int, TweetModel>> getTweets() async {
-    final tweets = await _database.getTable(SqlDatabase.tableName);
+    final tweets = await _api.getTable(SqlTweetDatabase.tableName);
     final result = <int, TweetModel>{};
     for (final tweet in tweets) {
       //TODO: create constants file fo tables
@@ -57,7 +62,7 @@ class SqlRepository extends IRepository {
 
   @override
   Future<void> closeDataBase() async {
-    _database.close();
+    await _api.close();
   }
 
   //TODO: move to transform

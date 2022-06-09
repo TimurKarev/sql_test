@@ -9,7 +9,7 @@ part 'app_event.dart';
 part 'app_state.dart';
 
 class AppBloc extends Bloc<AppEvent, AppState> {
-  final IRepository _repository = SqlRepository();
+  final ITweetApi _repository = SqlTweetApi();
 
   AppBloc() : super(InitialState()) {
     on<InitialEvent>(_onInitialEvent);
@@ -26,7 +26,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     emitter(
       FetchingState(),
     );
-    await _repository.open();
+    await _repository.init();
     final tweetsMap = await _repository.getTweets();
     emitter(
       LoadedState(
