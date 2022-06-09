@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sql_test/src/domain/constants/available_emojis.dart';
+import 'package:sql_test/src/domain/model/available_emojis.dart';
 import 'package:sql_test/src/presentation/ui_kit/avatar_app.dart';
 import 'package:sql_test/src/presentation/ui_kit/emoji.dart';
 
@@ -8,7 +8,7 @@ class Tweet extends StatelessWidget {
   final String name;
   final String address;
   final String body;
-  final List<AvailableEmojis> emojis;
+  final List<EmojisModel> emojis;
 
   const Tweet({
     Key? key,

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sql_test/src/domain/constants/available_emojis.dart';
+import 'package:sql_test/src/domain/model/available_emojis.dart';
 import 'package:sql_test/src/presentation/ui_kit/emoji.dart';
 
 class EmojiPicker extends StatelessWidget {
-  final Function(AvailableEmojis emoji) onTap;
+  final Function(EmojisModel emoji) onTap;
 
   const EmojiPicker({
     Key? key,
@@ -18,7 +18,7 @@ class EmojiPicker extends StatelessWidget {
         padding: const EdgeInsets.all(12.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: AvailableEmojis.values
+          children: EmojisModel.values
               .map(
                 (emoji) => InkWell(
                   onTap: () => onTap(emoji),

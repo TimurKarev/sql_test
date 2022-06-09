@@ -1,6 +1,6 @@
 import 'package:rxdart/subjects.dart';
-import 'package:sql_test/src/domain/constants/available_emojis.dart';
-import 'package:sql_test/src/presentation/model/tweet_model.dart';
+import 'package:sql_test/src/domain/model/available_emojis.dart';
+import 'package:sql_test/src/domain/model/tweet_model.dart';
 import 'package:sql_test/src/repository/i_tweet_repository.dart';
 import 'package:sql_test/src/repository/sql/data_transformer.dart';
 import 'package:sql_test/src/repository/sql/sql_api.dart';
@@ -32,7 +32,7 @@ class SqlTweetRepository extends ITweetRepository {
   @override
   Future<void> changeEmoji({
     required int id,
-    required Set<AvailableEmojis> emojis,
+    required Set<EmojisModel> emojis,
   }) async {
     final tweetMap = _todoStreamController.value;
 

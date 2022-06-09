@@ -1,5 +1,5 @@
-import 'package:sql_test/src/domain/constants/available_emojis.dart';
-import 'package:sql_test/src/presentation/model/tweet_model.dart';
+import 'package:sql_test/src/domain/model/available_emojis.dart';
+import 'package:sql_test/src/domain/model/tweet_model.dart';
 
 ///Set of methods for transforming raw sql data and domain models
 abstract class DataTransformer {
@@ -23,12 +23,12 @@ abstract class DataTransformer {
     return emojisList.join(_separator);
   }
 
-  static Set<AvailableEmojis> _fromStringToEmojis(String? emojisString) {
+  static Set<EmojisModel> _fromStringToEmojis(String? emojisString) {
     if (emojisString == null) {
-      return <AvailableEmojis>{};
+      return <EmojisModel>{};
     }
 
-    final result = <AvailableEmojis>{};
+    final result = <EmojisModel>{};
     if (emojisString.isNotEmpty) {
       final emojis = emojisString.split(_separator);
       for (final emoji in emojis) {

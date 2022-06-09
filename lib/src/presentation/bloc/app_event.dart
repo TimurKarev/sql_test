@@ -18,7 +18,7 @@ class TweetPressedEvent extends AppEvent {
 }
 
 class EmojiPressedEvent extends AppEvent {
-  final AvailableEmojis pressedEmoji;
+  final EmojisModel pressedEmoji;
 
   const EmojiPressedEvent({required this.pressedEmoji});
 
