@@ -3,16 +3,17 @@ import 'package:equatable/equatable.dart';
 import 'package:sql_test/src/domain/constants/available_emojis.dart';
 import 'package:sql_test/src/presentation/model/tweet_model.dart';
 import 'package:sql_test/src/repository/i_tweet_api.dart';
-import 'package:sql_test/src/repository/sql/sql_tweet_api.dart';
 
 part 'app_event.dart';
 part 'app_state.dart';
 
 class AppBloc extends Bloc<AppEvent, AppState> {
-  final ITweetApi _repository = SqlTweetApi();
+  final ITweetApi _repository;
 
-  AppBloc() : super(InitialState()) {
-    on<InitialEvent>(_onInitialEvent);
+  AppBloc(ITweetApi repository)
+      : _repository = repository,
+        super(InitialState()) {
+    on<InitialEvent>((_, emitter) => _onInitialEvent(emitter));
     on<TweetPressedEvent>(_onTweetPressedEvent);
     on<EmojiPressedEvent>(_onEmojiPressedEvent);
 
@@ -20,12 +21,12 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   }
 
   Future<void> _onInitialEvent(
-    InitialEvent event,
     Emitter<AppState> emitter,
   ) async {
     emitter(
       FetchingState(),
     );
+
     await _repository.init();
     final tweetsMap = await _repository.getTweets();
     emitter(

@@ -47,7 +47,7 @@ class SqlRepository {
     try {
       await _db.update(
         tableName,
-        {column: "'$text'"},
+        {column: text},
         where: 'id = $id',
       );
     } catch (e) {

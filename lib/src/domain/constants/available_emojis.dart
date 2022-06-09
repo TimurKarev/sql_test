@@ -26,7 +26,7 @@ extension AvailableEmojisExtentions on AvailableEmojis {
 
   static AvailableEmojis getFromUnicode(String unicode) {
     switch (unicode) {
-      case '\u{FE0F}':
+      case '\u{1F496}':
         return AvailableEmojis.redHeart;
       case '\u{1F44D}':
         return AvailableEmojis.thumbsUp;
@@ -41,17 +41,3 @@ extension AvailableEmojisExtentions on AvailableEmojis {
     }
   }
 }
-
-// abstract class _AvailableEmojis {
-//   static const Map<String, String> emojisMap = {
-//     'redHeart': '\u{FE0F}',
-//     'thumbsUp': '\u{1F44D}',
-//     'fire': '\u{1F525}',
-//     'smilingFaceWithThreeHearts': '\u{1F970}',
-//     'cryingFace': '\u{1F622}',
-//   };
-//
-//   static List<String> get emojiNameList => emojisMap.keys.toList();
-//
-//   static List<String> get emojiList => emojisMap.values.toList();
-// }

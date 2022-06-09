@@ -14,7 +14,7 @@ abstract class InitialData {
       'address': '@timurkarev',
       'body': 'Съеш этих французких булочек',
       'emojis': [
-        '\u{FE0F}',
+        '\u{1F496}',
         '\u{1F44D}',
         '\u{1F970}',
         '\u{1F622}',
@@ -26,7 +26,6 @@ abstract class InitialData {
       'address': '@timurkarev',
       'body': 'Съеш этих французких булочек',
       'emojis': [
-        '\u{FE0F}',
         '\u{1F44D}',
       ],
     },
@@ -36,7 +35,6 @@ abstract class InitialData {
       'address': '@timurkarev',
       'body': 'Съеш этих французких булочек',
       'emojis': [
-        '\u{FE0F}',
         '\u{1F44D}',
         '\u{1F525}',
         '\u{1F970}',
@@ -49,7 +47,6 @@ abstract class InitialData {
       'address': '@timurkarev',
       'body': 'Съеш этих французких булочек',
       'emojis': [
-        '\u{FE0F}',
         '\u{1F44D}',
         '\u{1F525}',
         '\u{1F970}',
@@ -62,7 +59,6 @@ abstract class InitialData {
       'address': '@timurkarev',
       'body': 'Съеш этих французких булочек',
       'emojis': [
-        '\u{FE0F}',
         '\u{1F44D}',
         '\u{1F525}',
         '\u{1F970}',
@@ -75,7 +71,6 @@ abstract class InitialData {
       'address': '@timurkarev',
       'body': 'Съеш этих французких булочек',
       'emojis': [
-        '\u{FE0F}',
         '\u{1F44D}',
         '\u{1F525}',
         '\u{1F970}',
@@ -88,7 +83,6 @@ abstract class InitialData {
       'address': '@timurkarev',
       'body': 'Съеш этих французких булочек',
       'emojis': [
-        '\u{FE0F}',
         '\u{1F44D}',
         '\u{1F525}',
         '\u{1F970}',
@@ -101,7 +95,6 @@ abstract class InitialData {
       'address': '@timurkarev',
       'body': 'Съеш этих французких булочек',
       'emojis': [
-        '\u{FE0F}',
         '\u{1F44D}',
         '\u{1F525}',
         '\u{1F970}',
@@ -114,7 +107,6 @@ abstract class InitialData {
       'address': '@timurkarev',
       'body': 'Съеш этих французких булочек',
       'emojis': [
-        '\u{FE0F}',
         '\u{1F44D}',
         '\u{1F525}',
         '\u{1F970}',

@@ -24,7 +24,7 @@ class SqlTweetApi extends ITweetApi {
       tableName: SqlTweetDatabase.tableName,
       id: id,
       column: 'emojis',
-      text: '"$emojiString"',
+      text: emojiString,
     );
 
     final tweet = await _api.getRowByID(
