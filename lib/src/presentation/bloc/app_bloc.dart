@@ -20,6 +20,13 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     add(InitialEvent());
   }
 
+  @override
+  Future<void> close() async {
+    _repository.closeDataBase();
+
+    return super.close();
+  }
+
   Future<void> _onInitialEvent(
     Emitter<AppState> emitter,
   ) async {
@@ -92,11 +99,5 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         );
       }
     }
-  }
-
-  @override
-  Future<void> close() async {
-    _repository.closeDataBase();
-    return super.close();
   }
 }
