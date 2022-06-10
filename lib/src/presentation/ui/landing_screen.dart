@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sql_test/src/presentation/bloc/app_bloc.dart';
-import 'package:sql_test/src/presentation/ui/emoji_picker.dart';
+import 'package:sql_test/src/presentation/ui_kit/emoji_picker.dart';
 import 'package:sql_test/src/presentation/ui_kit/tweet.dart';
 import 'package:sql_test/src/repository/sql/sql_tweet_repository.dart';
 
