@@ -4,7 +4,7 @@ import 'package:sql_test/src/repository/repository_exeptions.dart';
 
 ///Set of methods for transforming raw sql data and domain models
 abstract class DataTransformer {
-  static const _separator = '#';
+  static const separator = '#';
 
   static TweetModel fromSqlToTweet(Map<String, Object?> sqlMap) {
     try {
@@ -31,7 +31,7 @@ abstract class DataTransformer {
       for (final emoji in emojisList) emoji.unicode,
     ];
 
-    return emojisUnicode.join(_separator);
+    return emojisUnicode.join(separator);
   }
 
   static Set<EmojisModel> _fromStringToEmojis(String? emojisString) {
@@ -41,7 +41,7 @@ abstract class DataTransformer {
 
     final result = <EmojisModel>{};
     if (emojisString.isNotEmpty) {
-      final emojis = emojisString.split(_separator);
+      final emojis = emojisString.split(separator);
       try {
         for (final emoji in emojis) {
           result.add(AvailableEmojisExtentions.getFromUnicode(emoji));
