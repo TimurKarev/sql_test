@@ -23,12 +23,15 @@ abstract class DataTransformer {
     }
   }
 
-  static String fromEmojisToString(List<dynamic> emojisList) {
+  static String fromEmojisToString(List<EmojisModel> emojisList) {
     if (emojisList.isEmpty) {
       return '';
     }
+    final emojisUnicode = [
+      for (final emoji in emojisList) emoji.unicode,
+    ];
 
-    return emojisList.join(_separator);
+    return emojisUnicode.join(_separator);
   }
 
   static Set<EmojisModel> _fromStringToEmojis(String? emojisString) {

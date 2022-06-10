@@ -1,6 +1,5 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:sql_test/src/repository/repository_exeptions.dart';
-import 'package:sql_test/src/repository/sql/data_transformer.dart';
 import 'package:sql_test/src/repository/sql/initial_data.dart';
 
 ///Concrete implementation of database with hardcoded name tables and columns
@@ -77,10 +76,9 @@ class SqlTweetDatabase {
       final table = await database.query(_tableName);
       if (table.isEmpty) {
         for (var tweet in InitialData.data) {
-          final emojis = DataTransformer.fromEmojisToString(tweet['emojis'] as List<dynamic>);
           database.rawInsert('''
               INSERT INTO $_tableName ($_id, $_name, $_address, $_body, $_emojis)
-              VALUES (${tweet['id']}, "${tweet['name']}", "${tweet['address']}", "${tweet['body']}", "$emojis")
+              VALUES (${tweet['id']}, "${tweet['name']}", "${tweet['address']}", "${tweet['body']}", "${tweet['emojis']}")
               ''');
         }
       }

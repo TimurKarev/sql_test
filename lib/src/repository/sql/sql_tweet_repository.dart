@@ -14,8 +14,7 @@ class SqlTweetRepository extends ITweetRepository {
 
   @override
   Future<void> init() async {
-    final api = await SqlApi.createTweetApi();
-    _api = api;
+    _api = await SqlApi.createTweetApi();
 
     final tweetMap = await _getTweets();
     _todoStreamController.add(tweetMap);

@@ -44,7 +44,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
           tweets: tweetMap,
         ),
       );
-    } on RepositoryException {
+    } on RepositoryException catch (error) {
       emitter(ErrorState());
     }
   }
