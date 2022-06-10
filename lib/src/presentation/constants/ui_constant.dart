@@ -5,7 +5,8 @@ abstract class UiConstant {
   static const pickerPadding = 12.0;
   static const cardBorderRadius = 4.0;
   static const cardBorderThickness = 1.5;
-  static const cardElevation = 0.0;
+  static const defaultCardElevation = 0.0;
+  static const activeCardElevation = 10.0;
   static const cardPadding = 10.0;
   static const cardTextPadding = 10.0;
   static const cardDividerThickness = 1.0;

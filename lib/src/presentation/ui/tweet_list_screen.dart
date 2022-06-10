@@ -29,6 +29,7 @@ class TweetListScreen extends StatelessWidget {
                   address: model.address,
                   body: model.body,
                   emojis: model.emojis.toList(),
+                  isActive: model.id == state.tweetId,
                 ),
               );
             },

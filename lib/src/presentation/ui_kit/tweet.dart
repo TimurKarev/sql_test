@@ -9,6 +9,7 @@ class Tweet extends StatelessWidget {
   final String address;
   final String body;
   final List<EmojisModel> emojis;
+  final bool isActive;
 
   const Tweet({
     Key? key,
@@ -16,15 +17,16 @@ class Tweet extends StatelessWidget {
     required this.address,
     required this.body,
     required this.emojis,
+    this.isActive = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: UiConstant.cardElevation,
+      elevation: isActive ? UiConstant.activeCardElevation : UiConstant.defaultCardElevation,
       shape: RoundedRectangleBorder(
         side: BorderSide(
-          color: Theme.of(context).backgroundColor,
+          color: isActive ? Theme.of(context).primaryColor : Theme.of(context).backgroundColor,
           width: UiConstant.cardBorderThickness,
         ),
         borderRadius: const BorderRadius.all(
