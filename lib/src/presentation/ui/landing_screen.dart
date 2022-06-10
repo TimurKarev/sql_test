@@ -13,10 +13,37 @@ class LandingScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => AppBloc(RepositoryProvider.of<SqlTweetRepository>(context)),
       child: const Scaffold(
+        appBar: _AppBar(),
         body: SafeArea(
           child: TweetListScreen(),
         ),
         bottomNavigationBar: AppBarEmojiPicker(),
+      ),
+    );
+  }
+}
+
+class _AppBar extends StatelessWidget with PreferredSizeWidget {
+  @override
+  Size get preferredSize => const Size(double.infinity, 40.0);
+
+  const _AppBar({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      title: BlocBuilder<AppBloc, AppState>(
+        builder: (_, state) {
+          if (state is LoadedState) {
+            return Center(
+              child: Text(
+                'Emojis number: ${state.emojiNum.toString()}',
+              ),
+            );
+          }
+
+          return AppBar();
+        },
       ),
     );
   }

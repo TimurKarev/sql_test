@@ -16,6 +16,9 @@ class ErrorState extends AppState {}
 class LoadedState extends AppState {
   final Map<int, TweetModel> tweets;
   final int? tweetId;
+  late final int _emojiNum;
+
+  int get emojiNum => _emojiNum;
 
   List<TweetModel> get tweetList {
     final result = <TweetModel>[];
@@ -28,8 +31,15 @@ class LoadedState extends AppState {
 
   @override
   List<Object?> get props => [tweets, tweetId];
-  const LoadedState({
+
+  LoadedState({
     required this.tweets,
     this.tweetId,
-  });
+  }) {
+    var num = 0;
+    for (var element in tweetList) {
+      num += element.emojis.length;
+    }
+    _emojiNum = num;
+  }
 }
