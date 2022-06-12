@@ -3,6 +3,8 @@ import 'package:sql_test/src/domain/model/available_emojis.dart';
 import 'package:sql_test/src/presentation/constants/ui_constant.dart';
 import 'package:sql_test/src/presentation/ui_kit/emoji.dart';
 
+///Emoji picker
+///callback [onTap] takes the pressed [EmojisModel]
 class EmojiPicker extends StatelessWidget {
   final Function(EmojisModel emoji) onTap;
 

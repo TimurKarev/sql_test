@@ -4,6 +4,8 @@ import 'package:sql_test/src/presentation/constants/ui_constant.dart';
 import 'package:sql_test/src/presentation/ui_kit/avatar_app.dart';
 import 'package:sql_test/src/presentation/ui_kit/emoji.dart';
 
+///Tweet widget
+///takes List of [EmojisModel]
 class Tweet extends StatelessWidget {
   final String name;
   final String address;

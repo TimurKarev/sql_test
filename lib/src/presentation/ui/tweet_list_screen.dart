@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sql_test/src/presentation/bloc/app_bloc.dart';
 import 'package:sql_test/src/presentation/ui_kit/tweet.dart';
 
+///List of tweets
+///strong dependency to AppBloc
 class TweetListScreen extends StatelessWidget {
   const TweetListScreen({Key? key}) : super(key: key);
 

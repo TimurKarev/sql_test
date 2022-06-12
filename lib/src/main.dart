@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sql_test/src/presentation/bloc/app_bloc_observer.dart';
 import 'package:sql_test/src/presentation/ui/main_app.dart';
 
+//TODO: add logging and bloc Observer
 void main() {
   runZonedGuarded(
     () async {
