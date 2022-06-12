@@ -8,6 +8,8 @@ import 'package:sql_test/src/repository/repository_exeptions.dart';
 part 'app_event.dart';
 part 'app_state.dart';
 
+///Main business logic of all application.
+///The only bloc class with all applications Events and states
 class AppBloc extends Bloc<AppEvent, AppState> {
   final ITweetRepository _repository;
 

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sql_test/src/presentation/bloc/app_bloc.dart';
-import 'package:sql_test/src/presentation/ui_kit/emoji_picker.dart';
+import 'package:sql_test/src/presentation/ui/emoji_picker.dart';
 
+///Bottom emoji picker widget
+///strong dependency to App Bloc
 class AppBarEmojiPicker extends StatelessWidget {
   const AppBarEmojiPicker({Key? key}) : super(key: key);
 
